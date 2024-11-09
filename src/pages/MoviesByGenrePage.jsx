@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import MovieCard from '../components/MovieCard'; // Verifique o caminho correto para o componente MovieCard
+import MovieCard from '../components/MovieCard';
 
 export default function MoviesByGenrePage() {
-    const { genreId } = useParams(); // Captura o 'genreId' da URL
+    const { genreId } = useParams();
     const [movies, setMovies] = useState([]);
 
     useEffect(() => {
@@ -14,14 +14,14 @@ export default function MoviesByGenrePage() {
                     throw new Error('Erro ao buscar filmes por gênero');
                 }
                 const data = await response.json();
-                setMovies(data.results);  // Armazena os filmes no estado
+                setMovies(data.results);
             } catch (error) {
                 console.error("Erro ao buscar filmes por gênero:", error);
             }
         };
 
         fetchMoviesByGenre();
-    }, [genreId]);  // Reexecuta o efeito sempre que 'genreId' muda
+    }, [genreId]);
 
     return (
         <div className="p-4">

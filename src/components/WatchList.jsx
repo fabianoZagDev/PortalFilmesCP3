@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
 export default function Watchlist() {
-    const [toWatch, setToWatch] = useState([]); // Filmes para ver depois
-    const [watched, setWatched] = useState([]); // Filmes assistidos
+    const [toWatch, setToWatch] = useState([]);
+    const [watched, setWatched] = useState([]);
 
     useEffect(() => {
-        // Carregar listas do LocalStorage ao montar o componente
+
         const storedToWatch = JSON.parse(localStorage.getItem('toWatch')) || [];
         const storedWatched = JSON.parse(localStorage.getItem('watched')) || [];
         setToWatch(storedToWatch);
@@ -24,7 +24,7 @@ export default function Watchlist() {
         setWatched(prev => {
             const updatedList = [...prev, movie];
             localStorage.setItem('watched', JSON.stringify(updatedList));
-            // Remove o filme da lista para ver depois
+
             const newToWatch = toWatch.filter(item => item.id !== movie.id);
             localStorage.setItem('toWatch', JSON.stringify(newToWatch));
             setToWatch(newToWatch);
@@ -45,7 +45,7 @@ export default function Watchlist() {
     };
 
     return (
-        <div className="p-4 max-w-3xl mx-auto"> {/* Largura máxima de 900px */}
+        <div className="p-4 max-w-3xl mx-auto">
             <h1 className="text-2xl font-bold">Lista de Filmes</h1>
 
             <h2 className="text-xl font-semibold mt-4">Para Ver Depois</h2>
@@ -54,13 +54,13 @@ export default function Watchlist() {
                     <li key={movie.id} className="flex justify-between items-center mb-2">
                         <span>{movie.title}</span>
                         <div>
-                            <button 
-                                onClick={() => markAsWatched(movie)} 
+                            <button
+                                onClick={() => markAsWatched(movie)}
                                 className="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600 mr-2">
                                 Assistido
                             </button>
-                            <button 
-                                onClick={() => removeFromToWatch(movie.id)} 
+                            <button
+                                onClick={() => removeFromToWatch(movie.id)}
                                 className="border border-red-600 text-red-600 px-2 py-1 rounded hover:bg-red-600 hover:text-white">
                                 Remover
                             </button>
@@ -74,8 +74,8 @@ export default function Watchlist() {
                 {watched.map(movie => (
                     <li key={movie.id} className="flex justify-between items-center mb-2">
                         <span>{movie.title}</span>
-                        <button 
-                            onClick={() => removeFromWatched(movie.id)} 
+                        <button
+                            onClick={() => removeFromWatched(movie.id)}
                             className="border border-red-600 text-red-600 px-2 py-1 rounded hover:bg-red-600 hover:text-white">
                             Remover
                         </button>
